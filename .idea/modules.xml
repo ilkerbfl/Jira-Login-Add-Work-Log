@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/JiraLogin.iml" filepath="$PROJECT_DIR$/JiraLogin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JiraLoginThenWorkLog.iml" filepath="$PROJECT_DIR$/JiraLoginThenWorkLog.iml" />
     </modules>
   </component>
 </project>

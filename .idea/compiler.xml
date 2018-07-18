@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="JiraLogin" />
+        <module name="JiraLoginThenWorkLog" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="JiraLogin" target="1.5" />
+      <module name="JiraLoginThenWorkLog" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>
