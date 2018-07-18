@@ -45,34 +45,6 @@ public class AddWorkLog {
         addWorkLog();
     }
 
-    /**
-     * This method fills; worked hour , work type, activity type then submit
-     */
-    private static void addWorkLog() {
-
-        WebElement workHourTextbox = driver.findElement(By.id(WORK_HOUR_TEXTBOX_ID));
-        workHourTextbox.click();
-        workHourTextbox.sendKeys(WORK_HOUR);
-
-        new Select(driver.findElement(By.id(WORK_TYPE_DROPDOWN_ID))).selectByVisibleText(WORK_TYPE_VISIBLE_TEXT);
-
-        new Select(driver.findElement(By.id(ACTIVITY_TYPE_DROPDOWN_ID))).selectByValue(ACTIVITY_TYPE_VISIBLE_TEXT);
-
-        driver.findElement(By.id(ADD_WORKLOG_BUTTON_ID)).click();
-    }
-
-    /**
-     * This method waits after loging till page load then dispatch to related issue , clicks "More" dropdown, clicks Log Work
-     */
-    private static void openWorklogScreen() {
-        new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.id(AFTER_LOGIN_WAIT_FOR_THIS_COMPONENT_ID)));
-
-        driver.get(ISSUE_PAGE_URL);
-
-        driver.findElement(By.id(MORE_DROPDOWN_ID)).click();
-
-        driver.findElement(By.cssSelector(LOG_WORK_HREF_CONTAINS)).click();
-    }
 
     /**
      * This method first dispatch to login page, fills username password and submit .
@@ -93,4 +65,36 @@ public class AddWorkLog {
 
         driver.findElement(By.id(LOGIN_SUBMIT_BUTTON_ID)).click();
     }
+
+    /**
+     * This method waits after loging till page load then dispatch to related issue , clicks "More" dropdown, clicks Log Work
+     */
+    private static void openWorklogScreen() {
+        new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.id(AFTER_LOGIN_WAIT_FOR_THIS_COMPONENT_ID)));
+
+        driver.get(ISSUE_PAGE_URL);
+
+        driver.findElement(By.id(MORE_DROPDOWN_ID)).click();
+
+        driver.findElement(By.cssSelector(LOG_WORK_HREF_CONTAINS)).click();
+    }
+
+    /**
+     * This method fills; worked hour , work type, activity type then submit
+     */
+    private static void addWorkLog() {
+
+        WebElement workHourTextbox = driver.findElement(By.id(WORK_HOUR_TEXTBOX_ID));
+        workHourTextbox.click();
+        workHourTextbox.sendKeys(WORK_HOUR);
+
+        new Select(driver.findElement(By.id(WORK_TYPE_DROPDOWN_ID))).selectByVisibleText(WORK_TYPE_VISIBLE_TEXT);
+
+        new Select(driver.findElement(By.id(ACTIVITY_TYPE_DROPDOWN_ID))).selectByValue(ACTIVITY_TYPE_VISIBLE_TEXT);
+
+        driver.findElement(By.id(ADD_WORKLOG_BUTTON_ID)).click();
+    }
+
+
+
 }
