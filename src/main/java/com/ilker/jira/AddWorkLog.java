@@ -83,7 +83,7 @@ public class AddWorkLog {
      * This method fills; worked hour , work type, activity type then submit
      */
     private static void addWorkLog() {
-
+        new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.id(WORK_HOUR_TEXTBOX_ID)));
         WebElement workHourTextbox = driver.findElement(By.id(WORK_HOUR_TEXTBOX_ID));
         workHourTextbox.click();
         workHourTextbox.sendKeys(WORK_HOUR);
