@@ -1,6 +1,7 @@
 package com.ilker.jira;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -70,7 +71,12 @@ public class AddWorkLog {
      * This method waits after loging till page load then dispatch to related issue , clicks "More" dropdown, clicks Log Work
      */
     private static void openWorklogScreen() {
-        new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.id(AFTER_LOGIN_WAIT_FOR_THIS_COMPONENT_ID)));
+        //Sometimes it does not login in first try so wait for timeoutexception then click again.
+        try {
+            new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.id(AFTER_LOGIN_WAIT_FOR_THIS_COMPONENT_ID)));
+        }catch (TimeoutException e){
+            driver.findElement(By.id(LOGIN_SUBMIT_BUTTON_ID)).click();
+        }
 
         driver.get(ISSUE_PAGE_URL);
 
