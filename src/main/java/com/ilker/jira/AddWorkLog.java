@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.Calendar;
+
 /**
  * Created by İlker ÇATAK on 17.07.2018.
  */
@@ -41,18 +43,31 @@ public class AddWorkLog {
 //        chromeOptions.addArguments("--disable-gpu");
 //         WebDriver driver=new ChromeDriver(chromeOptions);
 
-        login();
-        openWorklogScreen();
-        addWorkLog();
+        if (checkWorkDays()) {
+            login(true);
+            openWorklogScreen();
+            addWorkLog();
+        }
+        driver.close();
+    }
+
+    private static boolean checkWorkDays() {
+        Calendar calendar = Calendar.getInstance();
+        if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+            return false;
+        }
+        return true;
     }
 
 
     /**
      * This method first dispatch to login page, fills username password and submit .
      */
-    private static void login() {
+    private static void login(boolean firstTry) {
 
-        driver.get(LOGIN_FORM_URL);
+        if (firstTry) {
+            driver.get(LOGIN_FORM_URL);
+        }
 
         new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.id(USERNAME_TEXTBOX_ID)));
 
@@ -74,8 +89,8 @@ public class AddWorkLog {
         //Sometimes it does not login in first try so wait for timeoutexception then click again.
         try {
             new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.id(AFTER_LOGIN_WAIT_FOR_THIS_COMPONENT_ID)));
-        }catch (TimeoutException e){
-            driver.findElement(By.id(LOGIN_SUBMIT_BUTTON_ID)).click();
+        } catch (TimeoutException e) {
+            login(false);
         }
 
         driver.get(ISSUE_PAGE_URL);
@@ -100,7 +115,6 @@ public class AddWorkLog {
 
         driver.findElement(By.id(ADD_WORKLOG_BUTTON_ID)).click();
     }
-
 
 
 }
