@@ -33,6 +33,7 @@ public class AddWorkLog {
     private static final String LOGIN_SUBMIT_BUTTON_ID = "login";
     private static final String USERNAME = "ilker.catak";
     private static final String PASSWORD = "155İç-155!";
+    private static int trialCount = 5;
 
 
     public static void main(String[] args) {
@@ -44,10 +45,11 @@ public class AddWorkLog {
 //         WebDriver driver=new ChromeDriver(chromeOptions);
 
         if (checkWorkDays()) {
-            login(true);
+            login();
             openWorklogScreen();
             addWorkLog();
         }
+        new WebDriverWait(driver, 10);
         driver.close();
     }
 
@@ -63,9 +65,9 @@ public class AddWorkLog {
     /**
      * This method first dispatch to login page, fills username password and submit .
      */
-    private static void login(boolean firstTry) {
+    private static void login() {
 
-        if (firstTry) {
+        if (trialCount==5) {
             driver.get(LOGIN_FORM_URL);
         }
 
@@ -78,7 +80,7 @@ public class AddWorkLog {
         WebElement passwordTextBox = driver.findElement(By.id(PASSWORD_TEXTBOX_ID));
         passwordTextBox.click();
         passwordTextBox.sendKeys(PASSWORD);
-
+        new WebDriverWait(driver, 1);
         driver.findElement(By.id(LOGIN_SUBMIT_BUTTON_ID)).click();
     }
 
@@ -90,7 +92,7 @@ public class AddWorkLog {
         try {
             new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.id(AFTER_LOGIN_WAIT_FOR_THIS_COMPONENT_ID)));
         } catch (TimeoutException e) {
-            login(false);
+            login();
         }
 
         driver.get(ISSUE_PAGE_URL);
